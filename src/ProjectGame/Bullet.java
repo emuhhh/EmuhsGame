@@ -1,4 +1,4 @@
-package Projectgame;
+package ProjectGame;
 
 import java.awt.*;
 

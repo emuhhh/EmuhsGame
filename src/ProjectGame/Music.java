@@ -1,4 +1,4 @@
-package Projectgame;
+package ProjectGame;
 
 public class Music extends Thread{
     @Override

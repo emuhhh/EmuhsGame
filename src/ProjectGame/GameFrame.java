@@ -1,7 +1,12 @@
-package Projectgame;
+package ProjectGame;
 
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,6 +16,18 @@ public class GameFrame extends JFrame {
     public static PlayerFigure player1;
     public static ArrayList<Bullet> bullets = new ArrayList<>();
     public static GameFrame window;
+    public static JPanel newPanelObject;
+    public static JButton newGame;
+
+    public static BufferedImage gameOverImage;
+
+    static {
+        try {
+            gameOverImage = ImageIO.read(new File("src/ProjectGame/12.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
@@ -66,8 +83,12 @@ public class GameFrame extends JFrame {
     }
 
     public void gameOver(Graphics2D drawer) {
-        drawer.setColor(Color.black);
-        drawer.fillRect(0,0,GameFrame.panelObject.getWidth(),GameFrame.panelObject.getHeight());
+        int w = 100;
+        int h = 100;
+        drawer.drawImage(gameOverImage, (getWidth() - w) / 2 , (getHeight() - h) / 2, w, h,this);
+        setVisible(true);
+        System.out.println("recht");
+
     }
 
     public static class Update extends TimerTask {
