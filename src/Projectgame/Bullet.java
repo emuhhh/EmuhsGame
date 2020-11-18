@@ -16,9 +16,9 @@ public class Bullet {
         this.velY = velY;
     }
 
-    public void draw(Graphics2D zeichner) {
-        zeichner.setColor(Color.red);
-        zeichner.fillOval((int) x - width / 2, (int) y - height / 2, width, height);
+    public void draw(Graphics2D drawer) {
+        drawer.setColor(Color.red);
+        drawer.fillOval((int) x - width / 2, (int) y - height / 2, width, height);
     }
 
     public void update() {
