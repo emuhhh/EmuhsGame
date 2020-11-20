@@ -32,6 +32,9 @@ public class PlayerFigure {
 
             if (distance < width / 2d + GameFrame.bullets.get(i).width / 2d) {
                 run = false;
+                bullets.clear();
+                clickedX = null;
+                clickedY = null;
 
             }
 

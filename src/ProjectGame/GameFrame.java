@@ -1,6 +1,8 @@
 package ProjectGame;
 
 
+import org.w3c.dom.css.Counter;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -46,6 +48,8 @@ public class GameFrame extends JFrame {
         counter.scheduleAtFixedRate(new Repaint(), 0, 1000 / 100);
         new Timer().scheduleAtFixedRate(new Update(), 0, 1000 / 200);
         sound.start();
+        GameFrame.window.scoreCounter();
+
 
     }
 
@@ -82,9 +86,10 @@ public class GameFrame extends JFrame {
     }
 
     public void scoreCounter() {
-
+        int counter = 0;
         if(PlayerFigure.run = true){
-
+            counter++;
+            System.out.println(counter);
 
 
         }
@@ -103,7 +108,7 @@ public class GameFrame extends JFrame {
         drawer.drawImage(tryAgainImage, x, y, w, h, this);
         drawer.drawImage(gameOverImage, (getWidth() - w) / 2, (getHeight() - h / 2) / 4, w, h, this);
         setVisible(true);
-        if (player1.clickedX > x && player1.clickedX < x + w){
+        if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > x && player1.clickedX < x + w){
             if(player1.clickedY > y && player1.clickedY < y + h)
             PlayerFigure.run = true;
             //System.exit(0);
