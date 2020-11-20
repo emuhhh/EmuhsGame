@@ -16,8 +16,6 @@ public class GameFrame extends JFrame {
     public static PlayerFigure player1;
     public static ArrayList<Bullet> bullets = new ArrayList<>();
     public static GameFrame window;
-    public static JPanel newPanelObject;
-    public static JButton newGame;
     public static BufferedImage gameOverImage;
     public static BufferedImage tryAgainImage;
 
@@ -83,18 +81,33 @@ public class GameFrame extends JFrame {
         }
     }
 
+    public void scoreCounter() {
+
+        if(PlayerFigure.run = true){
+
+
+
+        }
+        else{
+
+
+
+        }
+    }
+
     public void gameOver(Graphics2D drawer) {
         int w = 500;
         int h = 100;
         int x = (getWidth() - w) / 2;
         int y = (getHeight() - h)/2;
-        drawer.drawImage(gameOverImage, x, y, w, h, this);
-        drawer.drawImage(tryAgainImage, (getWidth() - w) / 2, (getHeight() - h / 2) / 4, w, h, this);
+        drawer.drawImage(tryAgainImage, x, y, w, h, this);
+        drawer.drawImage(gameOverImage, (getWidth() - w) / 2, (getHeight() - h / 2) / 4, w, h, this);
         setVisible(true);
-        //if (player1.clickedX > x &&  ){
-            //PlayerFigure.run = true;
+        if (player1.clickedX > x && player1.clickedX < x + w){
+            if(player1.clickedY > y && player1.clickedY < y + h)
+            PlayerFigure.run = true;
             //System.exit(0);
-        //}
+        }
 
     }
 

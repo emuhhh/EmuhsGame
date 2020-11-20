@@ -20,11 +20,7 @@ public class Screen extends JPanel {
         }
         else {
             GameFrame.window.gameOver(drawer);
-            /*try {
-                drawer.drawImage(ImageIO.read(new File("src/ProjectGame/12.png")),0,0, null);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
+
 
 
         }
