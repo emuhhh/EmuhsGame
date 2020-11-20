@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class PlayerFigure {
     private float x = 100;
     private float y = 100;
-    private Integer clickedX;
-    private Integer clickedY;
+    public Integer clickedX;
+    public Integer clickedY;
     private int width = 30;
     private int height = 30;
     public static boolean run = true;
@@ -55,12 +55,18 @@ public class PlayerFigure {
     }
 
 
-
     public void saveCLickedPoint(int x, int y) {
         clickedX = x;
         clickedY = y;
     }
+
+
+
+
+
 }
+
+
 
 
 

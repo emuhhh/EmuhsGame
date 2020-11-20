@@ -19,15 +19,17 @@ public class GameFrame extends JFrame {
     public static JPanel newPanelObject;
     public static JButton newGame;
     public static BufferedImage gameOverImage;
+    public static BufferedImage tryAgainImage;
+
 
     static {
         try {
             gameOverImage = ImageIO.read(new File("src/ProjectGame/12.png"));
+            tryAgainImage = ImageIO.read(new File("src/ProjectGame/13.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 
     public static void main(String[] args) {
@@ -82,19 +84,24 @@ public class GameFrame extends JFrame {
     }
 
     public void gameOver(Graphics2D drawer) {
-        int w = 700;
-        int h = 111;
-        drawer.drawImage(gameOverImage, (getWidth() - w) / 2 , (getHeight() - h) / 2, w, h,this);
+        int w = 500;
+        int h = 100;
+        int x = (getWidth() - w) / 2;
+        int y = (getHeight() - h)/2;
+        drawer.drawImage(gameOverImage, x, y, w, h, this);
+        drawer.drawImage(tryAgainImage, (getWidth() - w) / 2, (getHeight() - h / 2) / 4, w, h, this);
         setVisible(true);
-        //PlayerFigure.run = true;
-        //System.exit(0);
+        //if (player1.clickedX > x &&  ){
+            //PlayerFigure.run = true;
+            //System.exit(0);
+        //}
 
     }
 
     public static class Update extends TimerTask {
         @Override
         public void run() {
-            GameFrame.player1.update(bullets);
+            GameFrame.player1.update(GameFrame.bullets);
 
         }
     }
