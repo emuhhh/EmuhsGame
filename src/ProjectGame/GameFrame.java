@@ -18,7 +18,6 @@ public class GameFrame extends JFrame {
     public static GameFrame window;
     public static JPanel newPanelObject;
     public static JButton newGame;
-
     public static BufferedImage gameOverImage;
 
     static {
@@ -60,20 +59,20 @@ public class GameFrame extends JFrame {
                 if (Math.random() < 0.5) {
                     // x = 0
                     if (Math.random() < z)
-                        GameFrame.bullets.add(new Bullet(0, (int) (Math.random() * GameFrame.panelObject.getHeight()), 0.5, 0));
+                        GameFrame.bullets.add(new Bullet(0, (int) (Math.random() * GameFrame.panelObject.getHeight()), 1, 0));
                 } else {
                     if (Math.random() < z)
-                        GameFrame.bullets.add(new Bullet(GameFrame.panelObject.getWidth(), (int) (Math.random() * GameFrame.panelObject.getHeight()), -0.5, 0));
+                        GameFrame.bullets.add(new Bullet(GameFrame.panelObject.getWidth(), (int) (Math.random() * GameFrame.panelObject.getHeight()), -1, 0));
                 }
             } else {
                 // y
                 if (Math.random() < 0.5) {
                     // x = 0
                     if (Math.random() < z)
-                        GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.panelObject.getWidth()), 0, 0, 0.5));
+                        GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.panelObject.getWidth()), 0, 0, 1));
                 } else {
                     if (Math.random() < z)
-                        GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.panelObject.getWidth()), GameFrame.panelObject.getHeight(), 0, -0.5));
+                        GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.panelObject.getWidth()), GameFrame.panelObject.getHeight(), 0, -1));
                 }
             }
             for (Bullet b : GameFrame.bullets) b.update();
@@ -83,11 +82,12 @@ public class GameFrame extends JFrame {
     }
 
     public void gameOver(Graphics2D drawer) {
-        int w = 100;
-        int h = 100;
+        int w = 700;
+        int h = 111;
         drawer.drawImage(gameOverImage, (getWidth() - w) / 2 , (getHeight() - h) / 2, w, h,this);
         setVisible(true);
-        System.out.println("recht");
+        //PlayerFigure.run = true;
+        //System.exit(0);
 
     }
 
