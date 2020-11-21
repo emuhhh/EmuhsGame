@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 
 public class PlayerFigure {
-    private float x = 100;
-    private float y = 100;
+    public float x = 100;
+    public float y = 100;
     public Integer clickedX;
     public Integer clickedY;
     private int width = 30;
     private int height = 30;
-    public static boolean run = true;
+    public static boolean alive = false;
 
 
     public void draw(Graphics2D drawer) {
@@ -22,7 +22,6 @@ public class PlayerFigure {
     }
 
 
-
     public void update(ArrayList<Bullet> bullets) {
 
         for (int i = 0; i < bullets.size(); i++) {
@@ -31,15 +30,18 @@ public class PlayerFigure {
             double distance = Math.sqrt((diffX * diffX) + (diffY * diffY));
 
             if (distance < width / 2d + GameFrame.bullets.get(i).width / 2d) {
-                run = false;
+                alive = false;
                 bullets.clear();
                 clickedX = null;
                 clickedY = null;
+                Screen.score = 0;
+                x = GameFrame.panelObject.getWidth() / 2;
+                y = GameFrame.panelObject.getHeight() / 2;
 
             }
 
         }
-        if (!(clickedX == null && clickedY == null)) {
+        if (clickedX != null && clickedY != null) {
             float offX = clickedX - x;
             float offY = clickedY - y;
 
@@ -62,9 +64,6 @@ public class PlayerFigure {
         clickedX = x;
         clickedY = y;
     }
-
-
-
 
 
 }

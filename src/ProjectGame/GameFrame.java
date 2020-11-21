@@ -1,8 +1,6 @@
 package ProjectGame;
 
 
-import org.w3c.dom.css.Counter;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 public class GameFrame extends JFrame {
     public static JPanel panelObject;
@@ -48,7 +47,6 @@ public class GameFrame extends JFrame {
         counter.scheduleAtFixedRate(new Repaint(), 0, 1000 / 100);
         new Timer().scheduleAtFixedRate(new Update(), 0, 1000 / 200);
         sound.start();
-        GameFrame.window.scoreCounter();
 
 
     }
@@ -57,26 +55,26 @@ public class GameFrame extends JFrame {
 
         @Override
         public void run() {
-            double z = 0.10;
+            double z = 0.1;
             if (Math.random() < 0.5) {
                 // x
                 if (Math.random() < 0.5) {
                     // x = 0
                     if (Math.random() < z)
-                        GameFrame.bullets.add(new Bullet(0, (int) (Math.random() * GameFrame.panelObject.getHeight()), 1, 0));
+                        GameFrame.bullets.add(new Bullet(0, (int) (Math.random() * GameFrame.player1.y), ((Math.random() + 0.5) * 1), Math.random() * 1));
                 } else {
                     if (Math.random() < z)
-                        GameFrame.bullets.add(new Bullet(GameFrame.panelObject.getWidth(), (int) (Math.random() * GameFrame.panelObject.getHeight()), -1, 0));
+                        GameFrame.bullets.add(new Bullet(GameFrame.panelObject.getWidth(), (int) (Math.random() * GameFrame.player1.y), ((Math.random() + 0.5) * -1), Math.random() * 1));
                 }
             } else {
                 // y
                 if (Math.random() < 0.5) {
                     // x = 0
                     if (Math.random() < z)
-                        GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.panelObject.getWidth()), 0, 0, 1));
+                        GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.player1.x), 0, Math.random() * 1, ((Math.random() + 0.5) * 1)));
                 } else {
                     if (Math.random() < z)
-                        GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.panelObject.getWidth()), GameFrame.panelObject.getHeight(), 0, -1));
+                        GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.player1.x), GameFrame.panelObject.getHeight(), Math.random() * 1, ((Math.random() + 0.5) * -1)));
                 }
             }
             for (Bullet b : GameFrame.bullets) b.update();
@@ -85,32 +83,17 @@ public class GameFrame extends JFrame {
         }
     }
 
-    public void scoreCounter() {
-        int counter = 0;
-        if(PlayerFigure.run = true){
-            counter++;
-            System.out.println(counter);
-
-
-        }
-        else{
-
-
-
-        }
-    }
-
     public void gameOver(Graphics2D drawer) {
-        int w = 500;
-        int h = 100;
-        int x = (getWidth() - w) / 2;
-        int y = (getHeight() - h)/2;
-        drawer.drawImage(tryAgainImage, x, y, w, h, this);
-        drawer.drawImage(gameOverImage, (getWidth() - w) / 2, (getHeight() - h / 2) / 4, w, h, this);
+        int w = panelObject.getWidth() / 2;
+        int h = panelObject.getHeight() / 6;
+        int x = (getWidth() / 2) - w / 2;
+        int y = panelObject.getHeight() / 2;
+        drawer.drawImage(tryAgainImage, x, y, w, h / 2, this);
+        drawer.drawImage(gameOverImage, x, y - h, w, h, this);
         setVisible(true);
-        if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > x && player1.clickedX < x + w){
-            if(player1.clickedY > y && player1.clickedY < y + h)
-            PlayerFigure.run = true;
+        if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > x && player1.clickedX < x + w) {
+            if (player1.clickedY > y && player1.clickedY < y + h)
+                PlayerFigure.alive = true;
             //System.exit(0);
         }
 
@@ -120,7 +103,11 @@ public class GameFrame extends JFrame {
         @Override
         public void run() {
             GameFrame.player1.update(GameFrame.bullets);
+            if (PlayerFigure.alive) {
+                Screen.score++;
 
+
+            }
         }
     }
 }
