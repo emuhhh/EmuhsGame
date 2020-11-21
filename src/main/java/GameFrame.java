@@ -9,79 +9,80 @@ import java.util.TimerTask;
 
 
 public class GameFrame extends JFrame {
-	public static JPanel panelObject;
-	public static PlayerFigure player1;
-	public static ArrayList<Bullet> bullets = new ArrayList<>();
-	public static GameFrame window;
-	public static BufferedImage gameOverImage;
-	public static BufferedImage tryAgainImage;
+    public static JPanel panelObject;
+    public static PlayerFigure player1;
+    public static ArrayList<Bullet> bullets = new ArrayList<>();
+    public static GameFrame window;
+    public static BufferedImage gameOverImage;
+    public static BufferedImage tryAgainImage;
 
-	static {
-		try {
-			gameOverImage = ImageIO.read(GameFrame.class.getResource("game_over.png"));
-			tryAgainImage = ImageIO.read(GameFrame.class.getResource("try_again.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    static {
+        try {
+            gameOverImage = ImageIO.read(GameFrame.class.getResource("game_over.png"));
+            tryAgainImage = ImageIO.read(GameFrame.class.getResource("try_again.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public static void main(String[] args) {
-		Music sound = new Music();
-		window = new GameFrame();
-		window.setName("Dodge Game");
-		window.setSize(1000, 1000);
-		window.setVisible(true);
+    public static void main(String[] args) {
+        Music sound = new Music();
+        window = new GameFrame();
+        window.setName("Dodge Game");
+        window.setSize(1000, 1000);
+        window.setVisible(true);
 
-		panelObject = new Screen();
-		panelObject.setBackground(Color.DARK_GRAY);
-		panelObject.addKeyListener(new KeyHandler());
-		panelObject.addMouseListener(new MouseHandler());
+        panelObject = new Screen();
+        panelObject.setBackground(Color.DARK_GRAY);
+        panelObject.addKeyListener(new KeyHandler());
+        panelObject.addMouseListener(new MouseHandler());
+        panelObject.setSize(window.getSize());
+        window.add(panelObject);
 
-		window.add(panelObject);
+        player1 = new PlayerFigure();
 
-		player1 = new PlayerFigure();
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new Repaint(), 0, 1000 / 100);
+        timer.scheduleAtFixedRate(new Update(), 0, 1000 / 200);
+        timer.scheduleAtFixedRate(new ScoreUpdate(), 0, 100);
+        System.out.println(panelObject.getWidth());
+        sound.start();
+    }
 
-		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(new Repaint(), 0, 1000 / 100);
-		timer.scheduleAtFixedRate(new Update(), 0, 1000 / 200);
-		timer.scheduleAtFixedRate(new ScoreUpdate(), 0, 100);
+    public static class Repaint extends TimerTask {
+        @Override
+        public void run() {
+            double z = 0.1;
 
-		sound.start();
-	}
+            if (GameFrame.player1.alive) {
+                double x;
+                double y;
+                if (Math.random() < 0.5) {
+                    y = (int) (Math.random() * GameFrame.panelObject.getHeight());
+                    if (Math.random() < 0.5) x = 0;
+                    else x = GameFrame.panelObject.getWidth();
+                } else {
+                    x = (int) (Math.random() * GameFrame.panelObject.getWidth());
+                    if (Math.random() < 0.5) y = 0;
+                    else y = GameFrame.panelObject.getHeight();
+                }
 
-	public static class Repaint extends TimerTask {
-		@Override
-		public void run() {
-			double z = 0.1;
+                double offX = player1.x - x;
+                double offY = player1.y - y;
+                double dist = Math.sqrt(offX * offX + offY * offY);
 
-			//if (GameFrame.player1.alive) {
-				double x;
-				double y;
-				if (Math.random() < 0.5) {
-					y = (int) (Math.random() * GameFrame.panelObject.getHeight());
-					if (Math.random() < 0.5) x = 0;
-					else x = GameFrame.panelObject.getWidth();
-				} else {
-					x = (int) (Math.random() * GameFrame.panelObject.getWidth());
-					if (Math.random() < 0.5) y = 0;
-					else y = GameFrame.panelObject.getHeight();
-				}
+                int noise = 100;
+                offX += Math.random() * noise - noise / 2d;
+                offY += Math.random() * noise - noise / 2d;
 
-				double offX = player1.x - x;
-				double offY = player1.y - y;
-				double dist = Math.sqrt(offX * offX + offY * offY);
-
-				int noise = 100;
-				offX += Math.random() * noise - noise / 2d;
-				offY += Math.random() * noise - noise / 2d;
-
-				offX /= dist;
-				offY /= dist;
-				offX *= 2;
-				offY *= 2;
-				if (Math.random() < 0.05 + Screen.score / 5000d)
-					GameFrame.bullets.add(new Bullet(x, y, offX, offY));
-			//}
+                offX /= dist;
+                offY /= dist;
+                offX *= 2;
+                offY *= 2;
+                if (Math.random() < 0.05 + Screen.score / 5000d)
+                    GameFrame.bullets.add(new Bullet(x, y, offX, offY));
+            }
+                //}
 			/*if (Math.random() < 0.5) {
 				// x
 				if (Math.random() < 0.5) {
@@ -103,45 +104,46 @@ public class GameFrame extends JFrame {
 						GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.player1.x), GameFrame.panelObject.getHeight(), Math.random() * 1, ((Math.random() + 0.5) * -1)));
 				}
 			}*/
-			for (Bullet b : GameFrame.bullets) b.update();
-			GameFrame.panelObject.repaint();
-		}
-	}
+                for (Bullet b : GameFrame.bullets) b.update();
+                GameFrame.panelObject.repaint();
 
-	public void gameOver(Graphics2D drawer) {
-		int w = panelObject.getWidth() / 2;
-		int h = panelObject.getHeight() / 6;
-		int x = (getWidth() / 2) - w / 2;
-		int y = panelObject.getHeight() / 2;
-		drawer.drawImage(tryAgainImage, x, y, w, h / 2, this);
-		drawer.drawImage(gameOverImage, x, y - h, w, h, this);
-		setVisible(true);
-		if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > x && player1.clickedX < x + w) {
-			if (player1.clickedY > y && player1.clickedY < y + h) {
-				player1.alive = true;
-				player1.clickedX = null;
-				player1.clickedY = null;
-				Screen.score = 0;
-				player1.x = GameFrame.panelObject.getWidth() / 2f;
-				player1.y = GameFrame.panelObject.getHeight() / 2f;
-			}
-			//System.exit(0);
-		}
-	}
+        }
+    }
 
-	public static class Update extends TimerTask {
-		@Override
-		public void run() {
-			GameFrame.player1.update();
-		}
-	}
+    public void gameOver(Graphics2D drawer) {
+        int w = panelObject.getWidth() / 2;
+        int h = panelObject.getHeight() / 6;
+        int x = (getWidth() / 2) - w / 2;
+        int y = panelObject.getHeight() / 2;
+        drawer.drawImage(tryAgainImage, x, y, w, h / 2, this);
+        drawer.drawImage(gameOverImage, x, y - h, w, h, this);
+        setVisible(true);
+        if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > x && player1.clickedX < x + w) {
+            if (player1.clickedY > y && player1.clickedY < y + h / 2) {
+                player1.alive = true;
+                player1.clickedX = null;
+                player1.clickedY = null;
+                Screen.score = 0;
+                player1.x = GameFrame.panelObject.getWidth() / 2f;
+                player1.y = GameFrame.panelObject.getHeight() / 2f;
+            }
+            //System.exit(0);
+        }
+    }
 
-	public static class ScoreUpdate extends TimerTask {
-		@Override
-		public void run() {
-			if (player1.alive) {
-				Screen.score++;
-			}
-		}
-	}
+    public static class Update extends TimerTask {
+        @Override
+        public void run() {
+            GameFrame.player1.update();
+        }
+    }
+
+    public static class ScoreUpdate extends TimerTask {
+        @Override
+        public void run() {
+            if (player1.alive) {
+                Screen.score++;
+            }
+        }
+    }
 }

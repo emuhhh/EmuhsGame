@@ -12,15 +12,14 @@ public class Screen extends JPanel {
 		if (GameFrame.player1.alive) {
 			GameFrame.player1.draw(drawer);
 
-			g.setFont(g.getFont().deriveFont(20f));
+			g.setFont(g.getFont().deriveFont(GameFrame.panelObject.getWidth() / 1000));
 			g.setColor(Color.WHITE);
-			g.drawString("Score:" + score, GameFrame.panelObject.getWidth() - 150, 50);
+			g.drawString("Score: " + score, GameFrame.panelObject.getWidth() - 100 , 20);
 			for (int i = 0; i < GameFrame.bullets.size(); i++) {
 				GameFrame.bullets.get(i).draw(drawer);
 			}
 		} else {
 			GameFrame.window.gameOver(drawer);
-
 			g.setFont(g.getFont().deriveFont(40f));
 			g.setColor(Color.MAGENTA);
 			String scoreString = "Score:" + score;

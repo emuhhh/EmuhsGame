@@ -5,18 +5,14 @@ import java.util.ArrayList;
 
 
 public class PlayerFigure {
-    public double x;
-    public double y;
+    public double x = GameFrame.panelObject.getWidth() / 2f;
+    public double y = GameFrame.panelObject.getHeight() / 2f;
     public Integer clickedX;
     public Integer clickedY;
     private int width = 30;
     private int height = 30;
-    public boolean alive = false;
+    public boolean alive = true;
 
-    PlayerFigure(){
-        x = GameFrame.panelObject.getWidth() / 2f;
-        y = GameFrame.panelObject.getHeight() / 2f;
-    }
 
     public void draw(Graphics2D drawer) {
         drawer.setColor(Color.CYAN);
