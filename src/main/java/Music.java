@@ -1,5 +1,3 @@
-package ProjectGame;
-
 public class Music extends Thread{
     @Override
     public void run() {
@@ -7,13 +5,7 @@ public class Music extends Thread{
 
     }
 
-
-
-
     public void playMusic() {
-
-
-
 
     }
 }

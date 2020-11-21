@@ -1,5 +1,3 @@
-package ProjectGame;
-
 import java.awt.*;
 
 public class Bullet {
