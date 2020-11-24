@@ -10,17 +10,20 @@ public class Draw extends JPanel {
         Graphics2D drawer = (Graphics2D) g;
         g.drawImage(GameFrame.background, 0, 0, GameFrame.panelObject.getWidth(), GameFrame.panelObject.getHeight(), this);
 
+      /*  if (GameFrame.player1.alive) {
+            GameFrame.window.gameMenuScreen(drawer);
+        }*/
         if (GameFrame.player1.alive) {
             GameFrame.player1.draw(drawer);
 
             g.setFont(g.getFont().deriveFont(GameFrame.panelObject.getWidth() / 1000));
-            g.setColor(Color.WHITE);
+            g.setColor(new Color(0,255,0));
             g.drawString("Score: " + score, GameFrame.panelObject.getWidth() - 100, 20);
             for (int i = 0; i < GameFrame.bullets.size(); i++) {
                 GameFrame.bullets.get(i).draw(drawer);
             }
         } else {
-            GameFrame.window.gameOverScreen(drawer);
+            GameFrame.window.gameMenuScreen(drawer);
             g.setFont(g.getFont().deriveFont(40f));
             g.setColor(Color.white);
             String scoreString = "Score:" + score;

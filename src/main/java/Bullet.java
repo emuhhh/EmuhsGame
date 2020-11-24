@@ -7,6 +7,13 @@ public class Bullet {
     int width = 10;
     double velX, velY;
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param velX
+     * @param velY
+     */
     public Bullet(double x, double y, double velX, double velY) {
         this.x = x;
         this.y = y;
@@ -14,9 +21,13 @@ public class Bullet {
         this.velY = velY;
     }
 
-    public void draw(Graphics2D drawer) {
-        drawer.setColor(Color.red);
-        drawer.fillOval((int) x - width / 2, (int) y - height / 2, width, height);
+    /**
+     *
+     * @param g
+     */
+    public void draw(Graphics2D g) {
+        g.setColor(new Color(0,255,0));
+        g.fillOval((int) x - width / 2, (int) y - height / 2, width, height);
     }
 
     public void update() {

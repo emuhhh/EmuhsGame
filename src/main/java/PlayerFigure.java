@@ -18,6 +18,7 @@ public class PlayerFigure {
 			g.drawOval(clickedX, clickedY, 1, 1);
 	}
 
+
 	public void update() {
 		for (int i = 0; i < GameFrame.bullets.size(); i++) {
 			double diffX = Math.abs(x - GameFrame.bullets.get(i).x);
