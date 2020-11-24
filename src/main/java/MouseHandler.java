@@ -13,8 +13,8 @@ public class MouseHandler implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		/*System.out.println(e.getX());
-		System.out.println(e.getY());*/
+		System.out.println(e.getX());
+		System.out.println(e.getY());
 		if (e.getButton() == MouseEvent.BUTTON3 || e.getButton() == MouseEvent.BUTTON1)
 			GameFrame.player1.saveClickedPoint(e.getX(), e.getY());
 	}

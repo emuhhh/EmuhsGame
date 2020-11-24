@@ -1,24 +1,20 @@
-import com.sun.management.GarbageCollectionNotificationInfo;
-
 import java.awt.*;
-import java.util.ArrayList;
-
 
 public class PlayerFigure {
-    public double x = GameFrame.panelObject.getWidth() / 2f;
-    public double y = GameFrame.panelObject.getHeight() / 2f;
+    public double x = GameFrame.window.getWidth() / 2f;
+    public double y = GameFrame.window.getHeight() / 2f;
     public Integer clickedX;
     public Integer clickedY;
     private int width = 30;
     private int height = 30;
-    public boolean alive = true;
+    public boolean alive = false;
 
 
-    public void draw(Graphics2D drawer) {
-        drawer.setColor(Color.CYAN);
-        drawer.fillOval((int) x - width / 2, (int) y - height / 2, width, height);
+    public void draw(Graphics2D g) {
+        g.setColor(Color.CYAN);
+        g.fillOval((int) x - width / 2, (int) y - height / 2, width, height);
         if (clickedX != null && clickedY != null)
-            drawer.drawOval(clickedX, clickedY, 1, 1);
+            g.drawOval(clickedX, clickedY, 1, 1);
     }
 
     public void update() {
