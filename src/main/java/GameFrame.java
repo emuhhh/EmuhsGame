@@ -151,9 +151,9 @@ public class GameFrame extends JFrame {
         int xGameOver = (window.getWidth() / 2) - wGameOver / 2;
         int yGameOver = window.getHeight() / 6;
 
-        int wRestart = 1;
+        int wRestart = window.getWidth() / 16;
         int hRestart = 1;
-        int xRestart = window.getWidth() / 16;
+        int xRestart = 1 ;
         int yRestart = 1;
 
         int xMenu = xGameOver;
@@ -169,15 +169,24 @@ public class GameFrame extends JFrame {
         setVisible(true);
         g.drawImage(gameOverImage, xGameOver, yGameOver, wGameOver, hGameOver, this);
         g.drawImage(menuIcon, xMenu, yGameOver + hMenu * 2, window.getWidth() / 16, hMenu, this);
-        g.drawImage(tryAgainIcon, xMenu + wGameOver / 3, yGameOver + hMenu * 2, xRestart, hMenu, this);
+        g.drawImage(tryAgainIcon, xMenu + wGameOver / 3, yGameOver + hMenu * 2, wRestart, hMenu, this);
         g.drawImage(exitIcon, xMenu + wGameOver * 2 / 3, yGameOver + hMenu * 2, wExit, hMenu, this);
 
         if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > xMenu + wGameOver * 2 / 3 && player1.clickedX < xMenu + wGameOver * 2 / 3 + wExit) {
             if (player1.clickedY > yGameOver + hMenu * 2 && player1.clickedY < yGameOver + hMenu * 2 + hMenu) {
                 System.exit(0);
             }
+        }
 
-
+        if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > xMenu + wGameOver / 3 && player1.clickedX < xMenu + wGameOver / 3 + wExit) {
+            if (player1.clickedY > yGameOver + hMenu * 2 && player1.clickedY < yGameOver + hMenu * 2 + hMenu) {
+                player1.alive = true;
+                player1.clickedX = null;
+                player1.clickedY = null;
+                Draw.score = 0;
+                player1.x = GameFrame.panelObject.getWidth() / 2f;
+                player1.y = GameFrame.panelObject.getHeight() / 2f;
+            }
         }
       /*  if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > x && player1.clickedX < x + w) {
             if (player1.clickedY > y && player1.clickedY < y + h / 2) {

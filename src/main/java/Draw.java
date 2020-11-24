@@ -8,7 +8,7 @@ public class Draw extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D drawer = (Graphics2D) g;
-        g.drawImage(GameFrame.menuBackground, 0, 0, GameFrame.panelObject.getWidth(), GameFrame.panelObject.getHeight(), this);
+        g.drawImage(GameFrame.background, 0, 0, GameFrame.panelObject.getWidth(), GameFrame.panelObject.getHeight(), this);
 
         if (GameFrame.player1.alive) {
             GameFrame.player1.draw(drawer);
