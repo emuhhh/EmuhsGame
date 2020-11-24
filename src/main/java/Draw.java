@@ -22,7 +22,7 @@ public class Draw extends JPanel {
         } else {
             GameFrame.window.gameOverScreen(drawer);
             g.setFont(g.getFont().deriveFont(40f));
-            g.setColor(Color.MAGENTA);
+            g.setColor(Color.white);
             String scoreString = "Score:" + score;
             g.drawString("Score:" + score, GameFrame.panelObject.getWidth() / 2 - getFontMetrics(g.getFont()).stringWidth(scoreString) / 2, GameFrame.panelObject.getHeight() / 2 + GameFrame.panelObject.getHeight() / 4);
         }

@@ -152,25 +152,25 @@ public class GameFrame extends JFrame {
         int yGameOver = window.getHeight() / 6;
 
         int wRestart = window.getWidth() / 16;
-        int hRestart = 1;
-        int xRestart = 1 ;
-        int yRestart = 1;
+        int hRestart = window.getHeight() / 9;
+        int xRestart = xGameOver + wGameOver/ 2 - tryAgainIcon.getWidth() /2 ;
+        int yRestart = yGameOver + hRestart * 2;
 
         int xMenu = xGameOver;
-        int yMenu = 1;
         int wMenu = window.getWidth() / 16;
         int hMenu = window.getHeight() / 9;
+        int yMenu = yGameOver + hMenu * 2;
 
         int wExit = window.getWidth() / 16;
         int hExit = window.getWidth() / 9;
-        int xExit = 1;
-        int yExit = 1;
+        int xExit = xMenu + wGameOver * 2 / 3;
+        int yExit = yGameOver + hMenu * 2;
 
         setVisible(true);
         g.drawImage(gameOverImage, xGameOver, yGameOver, wGameOver, hGameOver, this);
-        g.drawImage(menuIcon, xMenu, yGameOver + hMenu * 2, window.getWidth() / 16, hMenu, this);
-        g.drawImage(tryAgainIcon, xMenu + wGameOver / 3, yGameOver + hMenu * 2, wRestart, hMenu, this);
-        g.drawImage(exitIcon, xMenu + wGameOver * 2 / 3, yGameOver + hMenu * 2, wExit, hMenu, this);
+        g.drawImage(menuIcon, xMenu, yMenu, wMenu, hMenu, this);
+        g.drawImage(tryAgainIcon, xRestart , yRestart, wRestart, hRestart, this);
+        g.drawImage(exitIcon, xExit, yExit, wExit, hExit, this);
 
         if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > xMenu + wGameOver * 2 / 3 && player1.clickedX < xMenu + wGameOver * 2 / 3 + wExit) {
             if (player1.clickedY > yGameOver + hMenu * 2 && player1.clickedY < yGameOver + hMenu * 2 + hMenu) {
@@ -178,6 +178,14 @@ public class GameFrame extends JFrame {
             }
         }
 
+
+        if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > xMenu && player1.clickedX < xMenu + window.getWidth() / 16 ){
+            if (player1.clickedY != null && player1.clickedY != null && player1.clickedY > yGameOver + hMenu * 2 && player1.clickedY < yGameOver + hMenu * 2 + hMenu){
+                System.exit(0);
+
+            }
+
+        }
         if (player1.clickedX != null && player1.clickedY != null && player1.clickedX > xMenu + wGameOver / 3 && player1.clickedX < xMenu + wGameOver / 3 + wExit) {
             if (player1.clickedY > yGameOver + hMenu * 2 && player1.clickedY < yGameOver + hMenu * 2 + hMenu) {
                 player1.alive = true;
