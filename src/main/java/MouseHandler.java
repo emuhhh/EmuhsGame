@@ -1,16 +1,30 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Mouse handler class
+ */
 public class MouseHandler implements MouseListener {
+	/**
+	 * not required in current project version, preset of MouseListener
+	 */
 	public MouseHandler() {
-		super();
+
 	}
 
+	/**
+	 * not required in current project version, preset of MouseListener
+	 * @param e mouse clicked
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
 	}
 
+	/**
+	 * not required in current project version, preset of MouseListener
+	 * @param e mouse pressed
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		System.out.println(e.getX());
@@ -19,16 +33,28 @@ public class MouseHandler implements MouseListener {
 			GameFrame.player1.saveClickedPoint(e.getX(), e.getY());
 	}
 
+	/**
+	 * not required in current project version, preset of MouseListener
+	 * @param e mouse released
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 
 	}
 
+	/**
+	 * not required in current project version, preset of MouseListener
+	 * @param e mouse entered
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 
 	}
 
+	/**
+	 * not required in current project version, preset of MouseListener
+	 * @param e mouse exited
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
 

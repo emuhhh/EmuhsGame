@@ -1,16 +1,46 @@
 import java.awt.*;
 
+/**
+ * Class of my user's player
+ */
 public class PlayerFigure {
+	/**
+	 * Variable X defines start-xPos of user's figure
+	 */
 	public double x = GameFrame.window.getWidth() / 2f;
+	/**
+	 * Variable Y defines start-yPos of user's figure
+	 */
 	public double y = GameFrame.window.getHeight() / 2f;
+	/**
+	 * saves clickedX as Integer
+	 */
 	public Integer clickedX;
+	/**
+	 * saves clickedY as Integer
+	 */
 	public Integer clickedY;
+	/**
+	 * sets user's figure's width
+	 */
 	private int width = 30;
+	/**
+	 * sets user's figure's height
+	 */
 	private int height = 30;
+	/**
+	 * sets user's figure's speed
+	 */
+	public static double speed = 3.1;
+	/**
+	 * run variable
+	 */
 	public Boolean alive = null;
 
-	public static double speed = 3.1;
-
+	/**
+	 * draws shape and color of users player
+	 * @param g Instance of class Graphics2D
+	 */
 	public void draw(Graphics2D g) {
 		g.setColor(Color.CYAN);
 		g.fillOval((int) x - width / 2, (int) y - height / 2, width, height);
@@ -18,7 +48,9 @@ public class PlayerFigure {
 			g.drawOval(clickedX, clickedY, 1, 1);
 	}
 
-
+	/**
+	 * collision detection + player movement
+	 */
 	public void update() {
 		for (int i = 0; i < GameFrame.bullets.size(); i++) {
 			double diffX = Math.abs(x - GameFrame.bullets.get(i).x);
@@ -49,6 +81,11 @@ public class PlayerFigure {
 		}
 	}
 
+	/**
+	 * saves the clicked point from Key-event of Mouse handler
+	 * @param x saved xPos of clickedX
+	 * @param y saved yPos of clickedY
+	 */
 	public void saveClickedPoint(int x, int y) {
 		clickedX = x;
 		clickedY = y;

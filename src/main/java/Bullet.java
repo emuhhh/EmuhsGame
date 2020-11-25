@@ -1,5 +1,8 @@
 import java.awt.*;
 
+/**
+ * Constructor bullet class
+ */
 public class Bullet {
     double x;
     double y;
@@ -8,11 +11,11 @@ public class Bullet {
     double velX, velY;
 
     /**
-     *
-     * @param x
-     * @param y
-     * @param velX
-     * @param velY
+     * properties of Bullet
+     * @param x xPosition of Bullet
+     * @param y yPosition of Bullet
+     * @param velX xVelocity of Bullet
+     * @param velY yVelocity of Bullet
      */
     public Bullet(double x, double y, double velX, double velY) {
         this.x = x;
@@ -22,14 +25,17 @@ public class Bullet {
     }
 
     /**
-     *
-     * @param g
+     * sets color and shape of bullet
+     * @param g Instance of class Graphics2D
      */
     public void draw(Graphics2D g) {
         g.setColor(new Color(0,255,0));
         g.fillOval((int) x - width / 2, (int) y - height / 2, width, height);
     }
 
+    /**
+     * defines Velocity
+     */
     public void update() {
         x += velX;
         y += velY;

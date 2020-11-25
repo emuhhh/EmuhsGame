@@ -1,3 +1,4 @@
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,20 +8,61 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+/**
+ * Emus game
+ * @author Emmanuel
+ * @version X
+ * Game frame class which extends from the class JFrame
+ */
 public class GameFrame extends JFrame {
-
+    /**
+     * Variable named panelObject of Class JPanel
+     */
     public static JPanel panelObject;
+    /**
+     * Variable named player1 of Class PlayerFigure
+     */
     public static PlayerFigure player1;
+    /**
+     * Variable named bullets of ArrayList with bullets out of Bullet class
+     */
     public static ArrayList<Bullet> bullets = new ArrayList<>();
+    /**
+     * Variable named window of class GameFrame
+     */
     public static GameFrame window;
+    /**
+     * Image used when Game over
+     */
     public static BufferedImage gameOverImage;
+    /**
+     * Image used as Try-again button
+     */
     public static BufferedImage tryAgainIcon;
+    /**
+     * Image used as Exit button
+     */
     public static BufferedImage exitIcon;
+    /**
+     * Image used as Menu button
+     */
     public static BufferedImage menuIcon;
+    /**
+     * Image used as Menu background
+     */
     public static BufferedImage menuBackground;
+    /**
+     * Image used as Menu background (needed if game ever changes design)
+     */
     public static BufferedImage background;
+    /**
+     * Image used as play icon
+     */
     public static BufferedImage playIcon;
+    /**
+     * Image used as flash icon
+     */
+    public static BufferedImage flashIcon;
 
     static {
         try {
@@ -31,17 +73,21 @@ public class GameFrame extends JFrame {
             exitIcon = ImageIO.read(GameFrame.class.getResource("exit_button.png"));
             menuBackground = ImageIO.read(GameFrame.class.getResource("game.background.png"));
             playIcon = ImageIO.read(GameFrame.class.getResource("play_button.png"));
+            flashIcon = ImageIO.read(GameFrame.class.getResource("flash_icon.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Main method
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         window = new GameFrame();
         window.setTitle("Dodge Game");
         window.setSize(1600, 900);
-        //window.getFullscreen();
-        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        window.getFullscreen();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
 
@@ -57,8 +103,12 @@ public class GameFrame extends JFrame {
         timer.scheduleAtFixedRate(new Repaint(), 0, 1000 / 60);
         timer.scheduleAtFixedRate(new Update(), 0, 1000 / 60);
         timer.scheduleAtFixedRate(new ScoreUpdate(), 0, 100);
+        JOptionPane.showMessageDialog(window,"If you obtain a white screen, please press \"alt + tab\"!");
     }
 
+    /**
+     * Repaint class extends from Timer task class
+     */
     public static class Repaint extends TimerTask {
         @Override
         public void run() {
@@ -93,36 +143,15 @@ public class GameFrame extends JFrame {
 
                 if (Math.random() < 0.05 + Draw.score / 5000d)
                     GameFrame.bullets.add(new Bullet(x, y, velX, velY));
-
             }
-            //}
-			/*if (Math.random() < 0.5) {
-				// x
-				if (Math.random() < 0.5) {
-					// x = 0
-					if (Math.random() < z)
-						GameFrame.bullets.add(new Bullet(0, (int) (Math.random() * GameFrame.player1.y), ((Math.random() + 0.5) * 1), Math.random() * 1));
-				} else {
-					if (Math.random() < z)
-						GameFrame.bullets.add(new Bullet(GameFrame.panelObject.getWidth(), (int) (Math.random() * GameFrame.player1.y), ((Math.random() + 0.5) * -1), Math.random() * 1));
-				}
-			} else {
-				// y
-				if (Math.random() < 0.5) {
-					// x = 0
-					if (Math.random() < z)
-						GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.player1.x), 0, Math.random() * 1, ((Math.random() + 0.5) * 1)));
-				} else {
-					if (Math.random() < z)
-						GameFrame.bullets.add(new Bullet((int) (Math.random() * GameFrame.player1.x), GameFrame.panelObject.getHeight(), Math.random() * 1, ((Math.random() + 0.5) * -1)));
-				}
-			}*/
             for (Bullet b : GameFrame.bullets) b.update();
             GameFrame.panelObject.repaint();
         }
     }
 
-
+    /**
+     * Fullscreen method, Resizes window
+     */
     public void getFullscreen() {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = env.getDefaultScreenDevice();
@@ -132,19 +161,28 @@ public class GameFrame extends JFrame {
         }
     }
 
-
+    /**
+     * Method to check if icon is clicked
+     * @param x xPosition of certain icon
+     * @param y yPosition of certain icon
+     * @param w width of certain icon
+     * @param h height of certain icon
+     * @param mouseX xPos mouse
+     * @param mouseY yPos mouse
+     * @return Hit-box of an icon with parameters of x,y,w,h
+     */
     public boolean in(int x, int y, int w, int h, Integer mouseX, Integer mouseY) {
         if (mouseX == null || mouseY == null) return false;
         return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
     }
 
-
+    /**
+     * template for Menu screen
+     * @param g Instance of class Graphics2D
+     */
     public void gameMenuScreen(Graphics2D g) {
         int w = panelObject.getWidth();
         int h = panelObject.getHeight();
-        int x = 0;
-        int y = 0;
-        g.drawImage(menuBackground, x, y, w, h, this);
         g.drawImage(playIcon, w / 2 - w / 32, h / 2 - h / 18, w / 18, h / 9, this);
         setVisible(true);
         String scoreString = "DODGIT";
@@ -155,13 +193,16 @@ public class GameFrame extends JFrame {
             player1.clickedX = null;
             player1.clickedY = null;
             Draw.score = 0;
+            Draw.cooldown = 0;
             player1.x = GameFrame.panelObject.getWidth() / 2f;
             player1.y = GameFrame.panelObject.getHeight() / 2f;
         }
-
     }
 
-
+    /**
+     * template for Game over screen
+     * @param g Instance of class Graphics2D
+     */
     public void gameOverScreen(Graphics2D g) {
 
         int wGameOver = window.getWidth() / 2;
@@ -196,23 +237,29 @@ public class GameFrame extends JFrame {
             player1.clickedX = null;
             player1.clickedY = null;
             Draw.score = 0;
+            Draw.cooldown = 0;
             player1.x = GameFrame.panelObject.getWidth() / 2f;
             player1.y = GameFrame.panelObject.getHeight() / 2f;
         }
     }
-
+    /**
+     * Calls {@link PlayerFigure#update()}
+     */
     public static class Update extends TimerTask {
         @Override
         public void run() {
             GameFrame.player1.update();
         }
     }
-
+    /**
+     * increases {@link Draw#score} and {@link Draw#cooldown}
+     */
     public static class ScoreUpdate extends TimerTask {
         @Override
         public void run() {
             if (player1.alive != null && player1.alive) {
                 Draw.score++;
+                Draw.cooldown++;
             }
         }
     }
