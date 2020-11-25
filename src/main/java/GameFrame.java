@@ -48,6 +48,7 @@ public class GameFrame extends JFrame {
         panelObject = new Draw();
         panelObject.setBackground(Color.DARK_GRAY);
         panelObject.addMouseListener(new MouseHandler());
+        window.addKeyListener(new KeyHandler());
         window.add(panelObject);
 
         player1 = new PlayerFigure();
@@ -61,7 +62,7 @@ public class GameFrame extends JFrame {
     public static class Repaint extends TimerTask {
         @Override
         public void run() {
-            if (GameFrame.player1.alive) {
+            if (GameFrame.player1.alive != null && GameFrame.player1.alive) {
                 double x;
                 double y;
                 if (Math.random() < 0.5) {
@@ -122,14 +123,20 @@ public class GameFrame extends JFrame {
     }
 
 
-	public void getFullscreen() {
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		GraphicsDevice gd = env.getDefaultScreenDevice();
+    public void getFullscreen() {
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = env.getDefaultScreenDevice();
 
-		if (gd.isFullScreenSupported()) {
-			gd.setFullScreenWindow(window);
-		}
-	}
+        if (gd.isFullScreenSupported()) {
+            gd.setFullScreenWindow(window);
+        }
+    }
+
+
+    public boolean in(int x, int y, int w, int h, Integer mouseX, Integer mouseY) {
+        if (mouseX == null || mouseY == null) return false;
+        return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
+    }
 
 
     public void gameMenuScreen(Graphics2D g) {
@@ -143,17 +150,16 @@ public class GameFrame extends JFrame {
         String scoreString = "DODGIT";
         g.setFont(g.getFont().deriveFont(300f));
         g.drawString(scoreString, w / 2 - getFontMetrics(g.getFont()).stringWidth(scoreString) / 2, h / 3);
-        if (in(w / 2 - w / 32,h / 2 - h / 18, w / 18,h / 9, player1.clickedX, player1.clickedY)){
-            GameFrame.player1.alive = true;
+        if (in(w / 2 - w / 32, h / 2 - h / 18, w / 18, h / 9, player1.clickedX, player1.clickedY)) {
+            player1.alive = true;
+            player1.clickedX = null;
+            player1.clickedY = null;
+            Draw.score = 0;
+            player1.x = GameFrame.panelObject.getWidth() / 2f;
+            player1.y = GameFrame.panelObject.getHeight() / 2f;
         }
 
     }
-
-    public boolean in(int x, int y, int w, int h, Integer mouseX, Integer mouseY) {
-        if (mouseX == null || mouseY == null) return false;
-        return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
-    }
-
 
 
     public void gameOverScreen(Graphics2D g) {
@@ -182,7 +188,7 @@ public class GameFrame extends JFrame {
         }
 
         if (in(xMenu, yIcon, wIcon, hIcon, player1.clickedX, player1.clickedY)) {
-
+            GameFrame.player1.alive = null;
         }
 
         if (in(xRestart, yIcon, wIcon, hIcon, player1.clickedX, player1.clickedY)) {
@@ -205,7 +211,7 @@ public class GameFrame extends JFrame {
     public static class ScoreUpdate extends TimerTask {
         @Override
         public void run() {
-            if (player1.alive) {
+            if (player1.alive != null && player1.alive) {
                 Draw.score++;
             }
         }

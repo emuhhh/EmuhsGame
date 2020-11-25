@@ -15,9 +15,9 @@ public class Draw extends JPanel {
         }*/
         if (GameFrame.player1.alive == null) {
             GameFrame.window.gameMenuScreen(drawer);
+        }
 
-
-        } if (GameFrame.player1.alive) {
+         else if (GameFrame.player1.alive) {
             GameFrame.player1.draw(drawer);
 
             g.setFont(g.getFont().deriveFont(GameFrame.panelObject.getWidth() / 200f));
