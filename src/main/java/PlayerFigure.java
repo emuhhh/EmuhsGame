@@ -7,7 +7,7 @@ public class PlayerFigure {
 	public Integer clickedY;
 	private int width = 30;
 	private int height = 30;
-	public boolean alive = false;
+	public Boolean alive = null;
 
 	public static double speed = 3.1;
 

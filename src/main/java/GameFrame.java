@@ -122,14 +122,14 @@ public class GameFrame extends JFrame {
     }
 
 
-	/*public void getFullscreen() {
+	public void getFullscreen() {
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice gd = env.getDefaultScreenDevice();
 
 		if (gd.isFullScreenSupported()) {
 			gd.setFullScreenWindow(window);
 		}
-	}*/
+	}
 
 
     public void gameMenuScreen(Graphics2D g) {
@@ -138,12 +138,13 @@ public class GameFrame extends JFrame {
         int x = 0;
         int y = 0;
         g.drawImage(menuBackground, x, y, w, h, this);
-        g.drawImage(playIcon, w / 2 - w / 32, h / 2 - h / 18, h / 18, h / 9, this);
+        g.drawImage(playIcon, w / 2 - w / 32, h / 2 - h / 18, w / 18, h / 9, this);
         setVisible(true);
         String scoreString = "DODGIT";
-        g.setFont(g.getFont().deriveFont(100f));
+        g.setFont(g.getFont().deriveFont(300f));
         g.drawString(scoreString, w / 2 - getFontMetrics(g.getFont()).stringWidth(scoreString) / 2, h / 3);
-        if (in(w / 2 - w / 32,h / 2 - h / 18,h / 2 - h / 18,h / 9, player1.clickedX, player1.clickedY)){
+        if (in(w / 2 - w / 32,h / 2 - h / 18, w / 18,h / 9, player1.clickedX, player1.clickedY)){
+            GameFrame.player1.alive = true;
         }
 
     }
