@@ -103,7 +103,7 @@ public class GameFrame extends JFrame {
         timer.scheduleAtFixedRate(new Repaint(), 0, 1000 / 60);
         timer.scheduleAtFixedRate(new Update(), 0, 1000 / 60);
         timer.scheduleAtFixedRate(new ScoreUpdate(), 0, 100);
-        JOptionPane.showMessageDialog(window,"If you obtain a white screen, please press \"alt + tab\"!");
+        JOptionPane.showMessageDialog(window,"Game instructions: Right / Left click to move, don't get hit and press \"f\" wisely" + ".If you obtain a white screen, please press \"alt + tab\"!");
     }
 
     /**
