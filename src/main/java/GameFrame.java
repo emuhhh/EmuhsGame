@@ -10,6 +10,7 @@ import java.util.TimerTask;
 
 /**
  * Emus game
+ *
  * @author Emmanuel
  * @version X
  * Game frame class which extends from the class JFrame
@@ -81,6 +82,7 @@ public class GameFrame extends JFrame {
 
     /**
      * Main method
+     *
      * @param args command line arguments
      */
     public static void main(String[] args) {
@@ -100,10 +102,10 @@ public class GameFrame extends JFrame {
         player1 = new PlayerFigure();
 
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new Repaint(), 0, 1000 / 60);
-        timer.scheduleAtFixedRate(new Update(), 0, 1000 / 60);
+        timer.scheduleAtFixedRate(new Repaint(), 0, 1000 / 144);
+        timer.scheduleAtFixedRate(new Update(), 0, 1000 / 144);
         timer.scheduleAtFixedRate(new ScoreUpdate(), 0, 100);
-        JOptionPane.showMessageDialog(window,"Game instructions: Right / Left click to move, don't get hit and press \"f\" wisely" + ".If you obtain a white screen, please press \"alt + tab\"!");
+        JOptionPane.showMessageDialog(window, "Game instructions: Right / Left click to move, don't get hit and press \"f\" wisely" + ".If you obtain a white screen, please press \"alt + tab\"!");
     }
 
     /**
@@ -135,13 +137,13 @@ public class GameFrame extends JFrame {
                 double dist = Math.sqrt(offX * offX + offY * offY);
                 double velX = offX / dist;
                 double velY = offY / dist;
-                velX *= 3;
-                velY *= 3;
+                velX *= PlayerFigure.speed / 1.1;
+                velY *= PlayerFigure.speed / 1.1;
 
                 x += velX;
                 y += velY;
 
-                if (Math.random() < 0.05 + Draw.score / 5000d)
+                if (Math.random() < 0.03 + Draw.score / 5000d)
                     GameFrame.bullets.add(new Bullet(x, y, velX, velY));
             }
             for (Bullet b : GameFrame.bullets) b.update();
@@ -163,10 +165,11 @@ public class GameFrame extends JFrame {
 
     /**
      * Method to check if icon is clicked
-     * @param x xPosition of certain icon
-     * @param y yPosition of certain icon
-     * @param w width of certain icon
-     * @param h height of certain icon
+     *
+     * @param x      xPosition of certain icon
+     * @param y      yPosition of certain icon
+     * @param w      width of certain icon
+     * @param h      height of certain icon
      * @param mouseX xPos mouse
      * @param mouseY yPos mouse
      * @return Hit-box of an icon with parameters of x,y,w,h
@@ -178,6 +181,7 @@ public class GameFrame extends JFrame {
 
     /**
      * template for Menu screen
+     *
      * @param g Instance of class Graphics2D
      */
     public void gameMenuScreen(Graphics2D g) {
@@ -201,6 +205,7 @@ public class GameFrame extends JFrame {
 
     /**
      * template for Game over screen
+     *
      * @param g Instance of class Graphics2D
      */
     public void gameOverScreen(Graphics2D g) {
@@ -242,6 +247,7 @@ public class GameFrame extends JFrame {
             player1.y = GameFrame.panelObject.getHeight() / 2f;
         }
     }
+
     /**
      * Calls {@link PlayerFigure#update()}
      */
@@ -251,6 +257,7 @@ public class GameFrame extends JFrame {
             GameFrame.player1.update();
         }
     }
+
     /**
      * increases {@link Draw#score} and {@link Draw#cooldown}
      */

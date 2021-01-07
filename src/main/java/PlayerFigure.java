@@ -31,7 +31,7 @@ public class PlayerFigure {
 	/**
 	 * sets user's figure's speed
 	 */
-	public static double speed = 3.1;
+	public static double speed = 1.5;
 	/**
 	 * run variable
 	 */
@@ -42,7 +42,7 @@ public class PlayerFigure {
 	 * @param g Instance of class Graphics2D
 	 */
 	public void draw(Graphics2D g) {
-		g.setColor(Color.CYAN);
+		g.setColor(new Color(255, 0, 0));
 		g.fillOval((int) x - width / 2, (int) y - height / 2, width, height);
 		if (clickedX != null && clickedY != null)
 			g.drawOval(clickedX, clickedY, 1, 1);

@@ -47,8 +47,7 @@ public class MouseHandler implements MouseListener {
 	 * @param e mouse entered
 	 */
 	@Override
-	public void mouseEntered(MouseEvent e) {
-
+	public void mouseEntered(MouseEvent e){
 	}
 
 	/**

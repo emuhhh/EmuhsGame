@@ -29,7 +29,7 @@ public class Bullet {
      * @param g Instance of class Graphics2D
      */
     public void draw(Graphics2D g) {
-        g.setColor(new Color(0,255,0));
+        g.setColor(new Color(156, 255, 0));
         g.fillOval((int) x - width / 2, (int) y - height / 2, width, height);
     }
 
